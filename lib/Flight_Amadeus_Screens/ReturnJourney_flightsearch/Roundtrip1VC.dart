@@ -23,6 +23,7 @@ import 'package:uuid/uuid.dart';
 import 'package:uuid/rng.dart';
 
 import '../OnwardJourney_price_DetailsVC.dart';
+import '../Round-trip_flight_price_details/Round_trip_price_detailsVC.dart';
 
 class Flight_Round_Trip extends StatefulWidget {
   const Flight_Round_Trip({super.key});
@@ -132,9 +133,13 @@ class _userDashboardState extends State<Flight_Round_Trip> {
   var OnwardJourney_airlineNameArray = [];
   var OnwardJourney_airlineLogoArray = [];
   var OnwardJourney_Segmentrray = [];
-  var Currency_Price_Array = [];
-  var fareRulesArray = [];
-  var travelerPricingslistArray = [];
+  var Round_trip_dep_Journey_Segmentrray = [];
+  var Round_trip_ItinerariArray = [];
+
+
+  var Round_trip_Currency_Price_Array = [];
+  var Round_trip_fareRulesArray = [];
+  var Round_trip_travelerPricingslistArray = [];
 
 
 
@@ -1337,6 +1342,30 @@ class _userDashboardState extends State<Flight_Round_Trip> {
         print('segmentData123.....');
         print(FlightDataArray);
 
+        var itinerariesArraysegment = flightdataArray['itineraries'];
+
+
+        // for (var Durationstrv in itinerariesArraysegment) {
+        //   String duration = Durationstrv['duration'];
+        //   durationArray.add(duration);
+        //   // String duration = itinerariesArray['segments'];
+        //   print('durationval...');
+        //   print(duration);
+        //   // for (var SegmentArray in Durationstrv) {
+        //   //   segmentValuesAray = SegmentArray['segments'];
+        //   for (var SegmentArray in itinerariesArraysegment) {
+        //
+        //     segmentValuesAray = SegmentArray['segments'];
+        //
+        //     print('call segments...');
+        //     print(segmentValuesAray);
+        //     Round_trip_dep_Journey_Segmentrray.add(segmentValuesAray);
+        //
+        //   }
+        // }
+
+
+
         var lastTicketingDatestr = flightdataArray['lastTicketingDate'];
         lastTicketingDateArray.add(lastTicketingDatestr);
         var lastTicketingDateTimestr = flightdataArray['lastTicketingDateTime'];
@@ -1361,6 +1390,7 @@ class _userDashboardState extends State<Flight_Round_Trip> {
           var itinerariesArray = FlightDataParsingArray['itineraries'];
           print('itinerariesArray....');
           print(itinerariesArray);
+          Round_trip_ItinerariArray.add(itinerariesArray);
 
           for (var SegmentArray in itinerariesArray) {
             segmentValuesAray = SegmentArray['segments'];
@@ -1375,6 +1405,7 @@ class _userDashboardState extends State<Flight_Round_Trip> {
               segmentValuesAraycnt.add(cnt);
               print('segmentValuesAraycnt....');
               print(segmentValuesAraycnt);
+              //Round_trip_dep_Journey_Segmentrray.add(segmentValuesAray);
             });
             if(segmentValuesAray.length == 1) {
               print('calling in 1st loop...');
@@ -1596,13 +1627,18 @@ class _userDashboardState extends State<Flight_Round_Trip> {
           //   // String duration = itinerariesArray['segments'];
           //   print('durationval...');
           //   print(duration);
-          //   for (var SegmentArray in Durationstrv) {
+          //   // for (var SegmentArray in Durationstrv) {
+          //   //   segmentValuesAray = SegmentArray['segments'];
+          //   for (var SegmentArray in itinerariesArray) {
+          //
           //     segmentValuesAray = SegmentArray['segments'];
           //
           //     print('call segments...');
           //     print(segmentValuesAray);
-          //   }
+          //     Round_trip_dep_Journey_Segmentrray.add(segmentValuesAray);
           //
+          //   }
+          // }
           //   // String segmentfirst = Durationstrv['segments'];
           //   // print('segmentfirst....');
           //   // print(segmentfirst);
@@ -1777,17 +1813,17 @@ class _userDashboardState extends State<Flight_Round_Trip> {
 
 
       }
-      // for(var Currency_Price in flightData){
-      //   var Currency_Pricestr = Currency_Price['price'];
-      //   print('Currency_Pricestr...');
-      //   print(Currency_Pricestr);
-      //   grandTotalprice = Currency_Pricestr['grandTotal'];
-      //   print('grandTotalprice...');
-      //   print(grandTotalprice);
-      //   grand_totalPricevaluesArray.add(grandTotalprice);
-      //   Currency_Price_Array.add(Currency_Pricestr);
-      //
-      // }
+      for(var Currency_Price in flightData){
+        var Currency_Pricestr = Currency_Price['price'];
+        print('Currency_Pricestr...');
+        print(Currency_Pricestr);
+        grandTotalprice = Currency_Pricestr['grandTotal'];
+        print('grandTotalprice...');
+        print(grandTotalprice);
+        grand_totalPricevaluesArray.add(grandTotalprice);
+        Round_trip_Currency_Price_Array.add(Currency_Pricestr);
+
+      }
 
 
       //validatingAirlineCodes
@@ -1826,7 +1862,7 @@ class _userDashboardState extends State<Flight_Round_Trip> {
         print('last travelerId...');
         print(travelerIdArray.last);
 
-        travelerPricingslistArray.add(travelerPricings_Array);
+        Round_trip_travelerPricingslistArray.add(travelerPricings_Array);
         List filterpriceArray = travelerPricings_Array.where((
             o) => o['travelerId'] == '1').toList();
         print('filtered...');
@@ -1859,7 +1895,7 @@ class _userDashboardState extends State<Flight_Round_Trip> {
         var fareRulesstr = fareRules['fareRules'] ?? '';
         print('fareRulesstr..... empty');
         print(fareRulesstr);
-        fareRulesArray.add(fareRulesstr);
+        Round_trip_fareRulesArray.add(fareRulesstr);
       }
     }
 
@@ -2242,6 +2278,7 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                 children: [
                                                                   if (Retrived_Rndtrp_Destination_iatacodestr == depiataCode) ...[
 
+                                                                    
                                                                     Text(first_seg_OnwardJourney_DeptimeArray[index].toString() + '----------------------------------> ' + first_Seg_OnwardJourney_ArrivaltimeArray[index],style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
                                                                     ),),
 
@@ -2407,44 +2444,44 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                       )
                                                                   ),
                                                                   onTap: () async {
-                                                                    //print('continue btn tapped....');
+                                                                    print('continue btn tapped....');
 
                                                                     SharedPreferences prefs = await SharedPreferences.getInstance();
 
                                                                     Navigator.push(
                                                                       context,
                                                                       MaterialPageRoute(
-                                                                          builder: (context) => OnwardJourney_Flight_Details()),
+                                                                          builder: (context) => RoundtripJourney_Flight_Details()),
                                                                     );
                                                                     prefs.setString('flightid_key', flightoffer_ID_Array[index]);;
                                                                     prefs.setString('source_key', sourceArray[index]);
                                                                     prefs.setString('lastTicketing_Datekey', lastTicketingDateArray[index]);
                                                                     prefs.setString('lastTicketingDate_Timekey', lastTicketingDateTimeArray[index]);
                                                                     prefs.setString('numberOfBookableSeatskey', numberOfBookableSeatsArray[index].toString());
-                                                                    prefs.setString('carrierCodekey', OnwardJourney_carrierCodeArray[index]);
-                                                                    prefs.setString('flight_optionkey', 'one-way');
+                                                                    prefs.setString('carrierCodekey', OnwardJourney_carrierCodeArray1[index]);
+                                                                    prefs.setString('flight_optionkey', 'round-trip');
 
-                                                                    // print('career code...');
-                                                                    // print(OnwardJourney_carrierCodeArray[index]);
-                                                                    prefs.setString('durationkey', durationArray[index]);
-                                                                    String segJson = jsonEncode(OnwardJourney_Segmentrray[index]);
-                                                                    // print('segJson...');
-                                                                    // print(segJson);
-                                                                    prefs.setString('Segmentkey', segJson);
+                                                                    print('career code...');
+                                                                    print(OnwardJourney_carrierCodeArray1[index]);
+                                                                   // prefs.setString('durationkey', durationArray[index]);
+                                                                    String Itinerary_JsonData = jsonEncode(Round_trip_ItinerariArray[index]);
+                                                                    print('rnd trip Itinerarykey segJson...');
+                                                                    print(Itinerary_JsonData);
+                                                                    prefs.setString('Itinerarykey', Itinerary_JsonData);
                                                                     String validatingAirlineCodesArrayData = jsonEncode(validatingAirlineCodesArrayList[index]);
                                                                     prefs.setString('validatingAirlineCodeskey', validatingAirlineCodesArrayData);
-                                                                    // print('validatingAirlineCodesArrayData......');
-                                                                    // print(validatingAirlineCodesArrayData);
-                                                                    String travelerPricings = jsonEncode(travelerPricingslistArray[index]);
-                                                                    prefs.setString('travelerPricingskey', travelerPricings);
-                                                                    String Currency_Price = jsonEncode(Currency_Price_Array[index]);
-                                                                    prefs.setString('Currency_Pricekey', Currency_Price);
-                                                                    String fareRulesstr = jsonEncode(fareRulesArray[index]);
+                                                                    print('validatingAirlineCodesArrayData......');
+                                                                    print(validatingAirlineCodesArrayData);
+                                                                    String travelerPricings = jsonEncode(Round_trip_travelerPricingslistArray[index]);
+                                                                    prefs.setString('Round_trip_travelerPricingskey', travelerPricings);
+                                                                    String Currency_Price = jsonEncode(Round_trip_Currency_Price_Array[index]);
+                                                                    prefs.setString('Round_trip_Currency_Pricekey', Currency_Price);
+                                                                    String fareRulesstr = jsonEncode(Round_trip_fareRulesArray[index]);
                                                                     print('fareRulesstr...');
                                                                     print(fareRulesstr);
-                                                                    prefs.setString('fareRuleskey', fareRulesstr);
-                                                                    prefs.setString('airlinekey', convertedAirlineArray[index]);
-                                                                    prefs.setString('logokey', AirlinelogoArray[index]);
+                                                                    prefs.setString('Round_trip_fareRuleskey', fareRulesstr);
+                                                                    // prefs.setString('airlinekey', convertedAirlineArray[index]);
+                                                                    // prefs.setString('logokey', AirlinelogoArray[index]);
                                                                     //Baggage
                                                                     // prefs.setInt('weightkey', weight) ?? 0;
                                                                     // prefs.setInt('quantitykey', quantity) ?? 0;
@@ -2480,36 +2517,36 @@ class _userDashboardState extends State<Flight_Round_Trip> {
 
                                                 onTap: () async{
 
-                                                  SharedPreferences prefs = await SharedPreferences.getInstance();
-
-                                                  // Navigator.push(
-                                                  //   context,
-                                                  //   MaterialPageRoute(
-                                                  //       builder: (context) => OnwardJourney_Flight_Details()),
-                                                  // );
-                                                  prefs.setString('flightid_key', flightoffer_ID_Array[index]);;
-                                                  prefs.setString('source_key', sourceArray[index]);
-                                                  prefs.setString('lastTicketing_Datekey', lastTicketingDateArray[index]);
-                                                  prefs.setString('lastTicketingDate_Timekey', lastTicketingDateTimeArray[index]);
-                                                  prefs.setString('numberOfBookableSeatskey', numberOfBookableSeatsArray[index].toString());
-                                                  prefs.setString('carrierCodekey', OnwardJourney_carrierCodeArray[index]);
-                                                  prefs.setString('durationkey', durationArray[index]);
-                                                  prefs.setString('flight_optionkey', 'one-way');
-
-                                                  String validatingAirlineCodesArrayData = jsonEncode(validatingAirlineCodesArrayList[index]);
-                                                  prefs.setString('validatingAirlineCodeskey', validatingAirlineCodesArrayData);
-                                                  // print('validatingAirlineCodesArrayData......');
-                                                  // print(validatingAirlineCodesArrayData);
-                                                  String segJson = jsonEncode(OnwardJourney_Segmentrray[index]);
-                                                  prefs.setString('Segmentkey', segJson);
-                                                  String travelerPricings = jsonEncode(travelerPricingslistArray[index]);
-                                                  prefs.setString('travelerPricingskey', travelerPricings);
-                                                  String Currency_Price = jsonEncode(Currency_Price_Array[index]);
-                                                  prefs.setString('Currency_Pricekey', Currency_Price);
-                                                  String fareRulesstr = jsonEncode(fareRulesArray[index]);
-                                                  print('fareRulesstr1...');
-                                                  print(fareRulesstr);
-                                                  prefs.setString('fareRuleskey', fareRulesstr);
+                                                  // SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                  //
+                                                  // // Navigator.push(
+                                                  // //   context,
+                                                  // //   MaterialPageRoute(
+                                                  // //       builder: (context) => OnwardJourney_Flight_Details()),
+                                                  // // );
+                                                  // prefs.setString('flightid_key', flightoffer_ID_Array[index]);;
+                                                  // prefs.setString('source_key', sourceArray[index]);
+                                                  // prefs.setString('lastTicketing_Datekey', lastTicketingDateArray[index]);
+                                                  // prefs.setString('lastTicketingDate_Timekey', lastTicketingDateTimeArray[index]);
+                                                  // prefs.setString('numberOfBookableSeatskey', numberOfBookableSeatsArray[index].toString());
+                                                  // prefs.setString('carrierCodekey', OnwardJourney_carrierCodeArray1[index]);
+                                                  // prefs.setString('durationkey', durationArray[index]);
+                                                  // prefs.setString('flight_optionkey', 'one-way');
+                                                  //
+                                                  // String validatingAirlineCodesArrayData = jsonEncode(validatingAirlineCodesArrayList[index]);
+                                                  // prefs.setString('validatingAirlineCodeskey', validatingAirlineCodesArrayData);
+                                                  // // print('validatingAirlineCodesArrayData......');
+                                                  // // print(validatingAirlineCodesArrayData);
+                                                  // String segJson = jsonEncode(OnwardJourney_Segmentrray[index]);
+                                                  // prefs.setString('Segmentkey', segJson);
+                                                  // String travelerPricings = jsonEncode(travelerPricingslistArray[index]);
+                                                  // prefs.setString('travelerPricingskey', travelerPricings);
+                                                  // String Currency_Price = jsonEncode(Round_trip_Currency_Price_Array[index]);
+                                                  // prefs.setString('Round_trip_Currency_Pricekey', Currency_Price);
+                                                  // String fareRulesstr = jsonEncode(fareRulesArray[index]);
+                                                  // print('fareRulesstr1...');
+                                                  // print(fareRulesstr);
+                                                  // prefs.setString('fareRuleskey', fareRulesstr);
 
                                                 },
 
