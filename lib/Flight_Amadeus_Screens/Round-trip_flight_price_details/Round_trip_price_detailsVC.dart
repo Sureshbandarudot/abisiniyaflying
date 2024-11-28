@@ -68,10 +68,17 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
   String numberOfBookableSeatsstr = '';
   String durationstr = '';
   String Careercodestr = '';
-  String RetrivedOneway_Oneway_Destinationiatacodestr = '';
-  String RetrivedOnew_Oneway_DestinationCitynamestr = '';
-  String Retrived_Oneway_Citynamestr = '';
-  String Retrived_Oneway_iatacodestr = '';
+  String return_Careercodestr = '';
+
+  // String RetrivedOneway_Oneway_Destinationiatacodestr = '';
+  // String RetrivedOnew_Oneway_DestinationCitynamestr = '';
+  //Round-trip
+  String Retrived_round_trip_dep_originiatacodestr = '';
+
+  String Retrived_round_trip_dep_Destinationiatacodestr = '';
+  String Retrived_Rndtrp_Destination_Citynamestr = '';
+  String Retrived_Rndtrp_Citynamestr = '';
+  //String Retrived_Oneway_iatacodestr = '';
   String Depterminal = '';
   String Arrivalterminal = '';
   String totalpricevalues = '';
@@ -116,11 +123,17 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
   String totalpriceSignvalues = '';
   String airlinestr = '';
   String logostr = '';
+  //return airline and logo variable declaration..
+  String return_airlinestr = '';
+  String return_logostr = '';
 
 
 
   var Departuretextstr = '';
   var flight_departurests = '';
+  //return
+  var return_Departuretextstr = '';
+  var return_flight_departurests = '';
 
   var travelerIdArray = [];
   String travelerTypestr = '';
@@ -158,12 +171,22 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
     Careercodestr = prefs.getString('carrierCodekey') ?? '';
     airlinestr = prefs.getString('airlinekey') ?? '';
     logostr = prefs.getString('logokey') ?? '';
-    // print('Careercodestr.....');
-    // print(Careercodestr);
-    RetrivedOneway_Oneway_Destinationiatacodestr = prefs.getString('Oneway_Destinationiatacodekey') ?? '';
-    RetrivedOnew_Oneway_DestinationCitynamestr = prefs.getString('Oneway_DestinationCitynamekey') ?? '';
-    Retrived_Oneway_iatacodestr = prefs.getString('Oneway_iatacodekey') ?? '';
-    Retrived_Oneway_Citynamestr = prefs.getString('Oneway_Citynamekey') ?? '';
+    //Return airline and logo retrived...
+    return_airlinestr = prefs.getString('return_airlinekey') ?? '';
+    return_logostr = prefs.getString('return_logokey') ?? '';
+    return_Careercodestr = prefs.getString('return_carrierCodekey') ?? '';
+
+
+
+
+    Retrived_round_trip_dep_originiatacodestr = prefs.getString('Rndtrp_originiatacodekey') ?? '';
+
+    Retrived_round_trip_dep_Destinationiatacodestr = prefs.getString('Rndtrp_Destinationiatacodekey') ?? '';
+    Retrived_Rndtrp_Destination_Citynamestr = prefs.getString('Rndtrp_DestinationCitynamekey') ?? '';
+    //Retrived_Oneway_iatacodestr = prefs.getString('Oneway_iatacodekey') ?? '';
+    //Retrived_Oneway_Citynamestr = prefs.getString('Oneway_Citynamekey') ?? '';
+    Retrived_Rndtrp_Citynamestr = prefs.getString('Rndtrp_originCitynamekey') ?? '';
+
 
     // setState(() {
     //   final data = json.decode(RetrivedSegment_Array);
@@ -1182,21 +1205,21 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
       flight_offer_Array.add(flightOffers);
       for(var itinerariesValues in flightOffers){
         var itinerariesArray = itinerariesValues['itineraries'];
-        // print('segmentsvalues...');
-        // print(itinerariesArray);
+        print('itineraries segmentsvalues...');
+        print(itinerariesArray);
         for(var segmentvalues in itinerariesArray){
           var SegmentArray = segmentvalues['segments'];
-          // print('SegmentArray...');
-          // print(SegmentArray);
+          print('SegmentArray...');
+          print(SegmentArray);
           for(var DeparturArray in SegmentArray){
             var Dep = DeparturArray['departure'] ?? "";
             var depiataCodestr = Dep['iataCode'];
-            // print('depiataCodestr..');
-            // print(depiataCodestr);
-            if(depiataCodestr == Retrived_Oneway_iatacodestr){
+            print('depiataCodestr..');
+            print(depiataCodestr);
+            if(depiataCodestr == Retrived_round_trip_dep_originiatacodestr){
               depiataCode = Dep['iataCode'];
-              // print('depiataCode.......');
-              // print(depiataCode);
+              print('depiataCode.......');
+              print(depiataCode);
 
               var departuretime = Dep['at'];
               Deptimeconvert =
@@ -1217,7 +1240,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
             var Arrival = ArraivalArray['arrival'] ?? "";
             var arrivalstr = Arrival['iataCode'];
 
-            if(arrivalstr == RetrivedOneway_Oneway_Destinationiatacodestr){
+            if(arrivalstr == Retrived_round_trip_dep_Destinationiatacodestr){
               arrivalCode = Arrival['iataCode'];
               // print('arrivalCode...');
               // print(arrivalCode);
@@ -1437,9 +1460,11 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                           //   print(' Cabinkg wise');
                           //   Cabin_Baggagestr = Cabin_weight.toString() + ' ' + 'KG';
                           // }
-                          Departuretextstr = 'Departure To ' + ' '+  RetrivedOneway_Oneway_Destinationiatacodestr;
+                          Departuretextstr = 'Departure To ' + ' '+  Retrived_round_trip_dep_Destinationiatacodestr;
 
                           flight_departurests = 'Price per passenger, taxes and fees included';
+                          return_Departuretextstr = 'Return To ' + ' '+  Retrived_round_trip_dep_originiatacodestr;
+
                           // trimedDuration = durationstr.substring(2);
                           //
                           // if(CurrencyCodestr == "USD"){
@@ -1459,7 +1484,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                 Container(
                                   margin: const EdgeInsets.only(
                                       left: 5.0, right: 5.0),
-                                  height: 700,
+                                  height: 520,
                                   width: 320,
                                   child: Column(
                                     children: [
@@ -1480,9 +1505,9 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                           style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
                                       ),
                                       Container(
-                                        height: 600,
+                                        height: 450,
                                         width: 320,
-                                        color: Colors.white10,
+                                        color: Colors.white54,
                                         child: Column(
                                           children: [
                                             Container(
@@ -1577,13 +1602,13 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                               Align(
                                                                 alignment: Alignment.topLeft,
                                                                 child: Text(
-                                                                  Retrived_Oneway_iatacodestr,
+                                                                  Retrived_round_trip_dep_originiatacodestr,
                                                                   style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
                                                               ),
                                                               Align(
                                                                 alignment: Alignment.topLeft,
                                                                 child: Text(
-                                                                  Retrived_Oneway_Citynamestr,
+                                                                  Retrived_Rndtrp_Citynamestr,
                                                                   style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
                                                               ),
 
@@ -1630,13 +1655,302 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                               Align(
                                                                 alignment: Alignment.topLeft,
                                                                 child: Text(
-                                                                  RetrivedOneway_Oneway_Destinationiatacodestr,
+                                                                  Retrived_round_trip_dep_Destinationiatacodestr,
                                                                   style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
                                                               ),
                                                               Align(
                                                                 alignment: Alignment.topLeft,
                                                                 child: Text(
-                                                                  RetrivedOnew_Oneway_DestinationCitynamestr,
+                                                                  Retrived_Rndtrp_Destination_Citynamestr,
+                                                                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                                                              ),
+                                                              Align(
+                                                                alignment: Alignment.topLeft,
+                                                                child: Text('Terminal:' + "   " + Arrivalterminal,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black),),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 3,
+                                            ),
+                                            // Container(
+                                            //   height: 150,
+                                            //   width: 320,
+                                            //   color: Colors.black12,
+                                            //   child: Column(
+                                            //     children: [
+                                            //       SizedBox(
+                                            //         height: 5,
+                                            //       ),
+                                            //       Container(
+                                            //         height: 40,
+                                            //         width: 320,
+                                            //         color: Colors.grey,
+                                            //         child:Align(
+                                            //           alignment: Alignment.centerLeft,
+                                            //           child: Text(
+                                            //             "Baggage allowance",
+                                            //             style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.black),),
+                                            //         ),
+                                            //       ),
+                                            //
+                                            //       SizedBox(
+                                            //         height: 10,
+                                            //       ),
+                                            //       Align(
+                                            //         alignment: Alignment.centerLeft,
+                                            //         child: Text(
+                                            //           'Checked baggage: ' + ' '+ Baggagestr,
+                                            //           style: TextStyle(fontSize: 16,fontWeight: FontWeight.w800,color: Colors.black45),),
+                                            //       ),
+                                            //       // SizedBox(
+                                            //       //   height: 5,
+                                            //       // ),
+                                            //       // Align(
+                                            //       //   alignment: Alignment.centerLeft,
+                                            //       //   child: Text(
+                                            //       //     'Cabin baggage: ' + ' '+ Cabin_Baggagestr ?? 'Info unaailable,please check with airline',
+                                            //       //     style: TextStyle(fontSize: 16,fontWeight: FontWeight.w800,color: Colors.black45),),
+                                            //       // ),
+                                            //       SizedBox(
+                                            //         height: 5,
+                                            //       ),
+                                            //       Align(
+                                            //         alignment: Alignment.centerLeft,
+                                            //         child: Text(
+                                            //           'Ticketing: ' + ' '+ 'Within 2 hours after payment',
+                                            //           style: TextStyle(fontSize: 16,fontWeight: FontWeight.w800,color: Colors.black45),),
+                                            //       ),
+                                            //
+                                            //
+                                            //
+                                            //       SizedBox(
+                                            //         height: 5,
+                                            //       ),
+                                            //       InkWell(
+                                            //         child: Container(
+                                            //             height: 30,
+                                            //             width: 320,
+                                            //             color: Colors.transparent,
+                                            //             child: Align(
+                                            //               alignment: Alignment.centerLeft,
+                                            //               child: Text(
+                                            //                   "Baggage &Policy Details",
+                                            //                   style: TextStyle(fontSize: 16,fontWeight: FontWeight.w900,color: Colors.blue),
+                                            //                   textAlign: TextAlign.center
+                                            //               ),
+                                            //             )
+                                            //         ),
+                                            //         onTap: () async {
+                                            //           print('continue btn tapped....');
+                                            //           Navigator.push(
+                                            //             context,
+                                            //             MaterialPageRoute(
+                                            //                 builder: (context) => BaggageDetailsVC()),
+                                            //           );
+                                            //         },
+                                            //       )
+                                            //     ],
+                                            //   ),
+                                            // ),
+
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+
+
+                                //return flight
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 5.0, right: 5.0),
+                                  height: 600,
+                                  width: 320,
+                                  child: Column(
+                                    children: [
+
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          return_Departuretextstr,
+                                          style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.black),),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          flight_departurests,
+                                          style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
+                                      ),
+                                      Container(
+                                        height: 520,
+                                        width: 320,
+                                        color: Colors.white10,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 65,
+                                              width: 320,
+                                              color: Colors.grey,
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  Container(
+                                                      height: 50,
+                                                      width: 300,
+                                                      child: Text(depiataCode + 'return---> ' + arrivalCode,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.black
+                                                      )
+                                                      )
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 2,),
+                                            Container(
+                                              height: 380,
+                                              width: 320,
+                                              color: Colors.black12,
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    height: 350,
+                                                    width: 320,
+                                                    color: Colors.transparent,
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          margin: const EdgeInsets.only(left: 10.0, right: 0.0),
+                                                          height: 350,
+                                                          width: 80,
+                                                          color: Colors.transparent,
+                                                          child: Column(
+                                                            children: [
+                                                              Text(depiataCode,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.black
+                                                              ),),
+
+                                                              SizedBox(height: 10,),
+                                                              Text(Deptimeconvert,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
+                                                              ),),
+
+                                                              SizedBox(
+                                                                height: 100,
+                                                              ),
+
+                                                              Text(trimedDuration,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
+                                                              ),),
+                                                              SizedBox(
+                                                                height: 100,
+                                                              ),
+                                                              Text(Arrivaltimeconvert,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
+                                                              ),),
+                                                              Text(arrivalCode,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.black
+                                                              ),),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin: const EdgeInsets.only(left: 0.0, right: 0.0),
+                                                          height: 350,
+                                                          width: 30,
+                                                          color: Colors.transparent,
+                                                          child:Container(
+                                                              width: 40,
+                                                              child: CircleAvatar(
+                                                                backgroundColor: Colors.transparent,
+                                                                radius: 50.0,
+                                                                child: Image.asset(
+                                                                    "images/flight-path-icon.png",
+                                                                    height: 300.0,
+                                                                    width: 300.0,
+                                                                    fit: BoxFit.fill
+                                                                ),
+                                                              )
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin: const EdgeInsets.only(left: 0.0, right: 0.0),
+
+                                                          height: 350,
+                                                          width: 200,
+                                                          color: Colors.transparent,
+                                                          child: Column(
+                                                            children: [
+                                                              Align(
+                                                                alignment: Alignment.topLeft,
+                                                                child: Text(
+                                                                  Retrived_round_trip_dep_originiatacodestr,
+                                                                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                                                              ),
+                                                              Align(
+                                                                alignment: Alignment.topLeft,
+                                                                child: Text(
+                                                                  Retrived_Rndtrp_Citynamestr,
+                                                                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                                                              ),
+
+                                                              Container(
+                                                                height: 50,
+                                                                width: 220,
+                                                                color: Colors.transparent,
+                                                                child: Text('Terminal:' + "   " + Depterminal,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black),),
+                                                              ),
+
+                                                              Container(
+                                                                alignment: FractionalOffset.centerLeft,
+
+                                                                height: 135,
+                                                                width: 200,
+                                                                color: Colors.transparent,
+                                                                child: Column(
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: 0,
+                                                                    ),
+                                                                    Container(
+                                                                      alignment: FractionalOffset.centerLeft,
+
+                                                                      height: 70,
+                                                                      width: 130,
+                                                                      //margin: new EdgeInsets.symmetric(vertical: 5.0),
+                                                                      decoration: BoxDecoration(
+                                                                          image: DecorationImage(image: NetworkImage(return_logostr),
+                                                                              fit: BoxFit.cover)
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(width: 0,),
+                                                                    Container(
+                                                                      height: 45,
+                                                                      width: 140,
+                                                                      color: Colors.transparent,
+                                                                      child:  Text(return_airlinestr + "   -" + return_Careercodestr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.black
+                                                                      ),),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Align(
+                                                                alignment: Alignment.topLeft,
+                                                                child: Text(
+                                                                  Retrived_round_trip_dep_Destinationiatacodestr,
+                                                                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                                                              ),
+                                                              Align(
+                                                                alignment: Alignment.topLeft,
+                                                                child: Text(
+                                                                  Retrived_Rndtrp_Destination_Citynamestr,
                                                                   style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
                                                               ),
                                                               Align(
@@ -1874,6 +2188,10 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                     ],
                                   ),
                                 ),
+
+
+
+
                                 Column(
                                   children: <Widget>[
                                     ListView.builder(

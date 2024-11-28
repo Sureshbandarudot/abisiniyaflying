@@ -932,7 +932,43 @@ class _userDashboardState extends State<FlightOnWardTrip> {
               }
             ];
 
-          } else if(Aduld_cnt == 1 && children_cnt == 2 && infant_cnt == 1) {
+          } else if(Aduld_cnt == 2 && children_cnt == 1 && infant_cnt == 1) {
+            print('2 adult,1 child and 1 infant....');
+            travelersArray = <Map<String, dynamic>>[
+              {
+                "id": "1",
+                "travelerType": 'ADULT',
+                "fareOptions": [
+                  "STANDARD"
+                ]
+              },
+              {
+                "id": "2",
+                "travelerType": 'ADULT',
+                "fareOptions": [
+                  "STANDARD"
+                ]
+              },
+
+              {
+                "id": "3",
+                "travelerType": 'CHILD',
+                "fareOptions": [
+                  "STANDARD"
+                ]
+              },
+
+              {
+                "id": "4",
+                "travelerType": 'HELD_INFANT',
+                "fareOptions": [
+                  "STANDARD"
+                ],
+                "associatedAdultId": "1"
+              }
+            ];
+
+          }else if(Aduld_cnt == 1 && children_cnt == 2 && infant_cnt == 1) {
             print('2 adult,2 child and 1 infant');
             travelersArray = <Map<String, dynamic>>[
               {

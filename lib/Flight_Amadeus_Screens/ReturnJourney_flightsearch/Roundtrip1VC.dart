@@ -2121,15 +2121,15 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                       //   }
                                       // }
 
-                                      // if(CurrencyCodestr == "USD"){
-                                      //   totalpricevalues = grand_totalPricevaluesArray[index].toString();
-                                      //   //print("I have \$$dollars."); // I have $42.
-                                      //   // totalpriceSignvalues = "\$$totalpricevalues";
-                                      //   totalpriceSignvalues = "\USD $totalpricevalues";
-                                      // } else {
-                                      //   totalpricevalues = grand_totalPricevaluesArray[index].toString();
-                                      //   totalpriceSignvalues = "\ZAR $totalpricevalues";
-                                      // }
+                                      if(CurrencyCodestr == "USD"){
+                                        totalpricevalues = grand_totalPricevaluesArray[index].toString();
+                                        //print("I have \$$dollars."); // I have $42.
+                                        // totalpriceSignvalues = "\$$totalpricevalues";
+                                        totalpriceSignvalues = "\USD $totalpricevalues";
+                                      } else {
+                                        totalpricevalues = grand_totalPricevaluesArray[index].toString();
+                                        totalpriceSignvalues = "\ZAR $totalpricevalues";
+                                      }
                                       return Padding(
                                         padding: const EdgeInsets.all(1.0),
                                         child: Card(
@@ -2417,16 +2417,31 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                           height: 10,
                                                         ),
                                                         Container(
-                                                          height: 50,
+                                                          height: 40,
                                                           width: 360,
                                                           color: Colors.transparent,
                                                           child: Container(
                                                             height: 50,
                                                             width: 250,
-                                                            margin: const EdgeInsets.only(left: 125.0, right: 0.0),
+                                                            margin: const EdgeInsets.only(left: 25.0, right: 0.0),
                                                             child: Row(
                                                               children: [
-                                                                SizedBox(width: 100,),
+
+                                                                Container(
+                                                                  height: 40,
+                                                                  width: 150,
+                                                                  color: Colors.transparent,
+                                                                  child: Column(
+                                                                    children: [
+                                                                      SizedBox(height: 10,),
+                                                                      // Text(convertedAirlineArray[index].toString() + "   -" + OnwardJourney_carrierCodeArray[index].toString(),style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.black
+                                                                      // ),),
+                                                                      Text( "${totalpriceSignvalues}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.red
+                                                                      ),),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(width: 50,),
 
                                                                 InkWell(
 
@@ -2460,6 +2475,8 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                     prefs.setString('numberOfBookableSeatskey', numberOfBookableSeatsArray[index].toString());
                                                                     prefs.setString('carrierCodekey', OnwardJourney_carrierCodeArray1[index]);
                                                                     prefs.setString('flight_optionkey', 'round-trip');
+                                                                    prefs.setString('return_carrierCodekey', ReturnJourney_carrierCodeArray1[index]);
+
 
                                                                     print('career code...');
                                                                     print(OnwardJourney_carrierCodeArray1[index]);
@@ -2480,8 +2497,11 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                     print('fareRulesstr...');
                                                                     print(fareRulesstr);
                                                                     prefs.setString('Round_trip_fareRuleskey', fareRulesstr);
-                                                                    // prefs.setString('airlinekey', convertedAirlineArray[index]);
-                                                                    // prefs.setString('logokey', AirlinelogoArray[index]);
+                                                                    prefs.setString('airlinekey', convertedAirlineArray[index]);
+                                                                    prefs.setString('logokey', AirlinelogoArray[index]);
+                                                                    //Return airline name and logo...
+                                                                    prefs.setString('return_airlinekey', Return_convertedAirlineArray[index]);
+                                                                    prefs.setString('return_logokey', Return_AirlinelogoArray[index]);
                                                                     //Baggage
                                                                     // prefs.setInt('weightkey', weight) ?? 0;
                                                                     // prefs.setInt('quantitykey', quantity) ?? 0;
