@@ -69,6 +69,15 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
   String durationstr = '';
   String Careercodestr = '';
   String return_Careercodestr = '';
+  //departure time variables
+  String departure_time = '';
+  String arrival_time = '';
+  //return time variables
+  String return_departure_time = '';
+  String return_arrival_time = '';
+
+
+
 
   // String RetrivedOneway_Oneway_Destinationiatacodestr = '';
   // String RetrivedOnew_Oneway_DestinationCitynamestr = '';
@@ -81,6 +90,9 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
   //String Retrived_Oneway_iatacodestr = '';
   String Depterminal = '';
   String Arrivalterminal = '';
+  //return
+  String return_Depterminal = '';
+  String return_Arrivalterminal = '';
   String totalpricevalues = '';
   String cabintrvalue = '';
   String segmentId = '';
@@ -186,6 +198,12 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
     //Retrived_Oneway_iatacodestr = prefs.getString('Oneway_iatacodekey') ?? '';
     //Retrived_Oneway_Citynamestr = prefs.getString('Oneway_Citynamekey') ?? '';
     Retrived_Rndtrp_Citynamestr = prefs.getString('Rndtrp_originCitynamekey') ?? '';
+
+    //Round-trip timings
+    //departure flight timings:-
+    departure_time = prefs.getString('return_journey_departure_time_key') ?? '';
+    arrival_time = prefs.getString('return_journey_arrival_time_key') ?? '';
+
 
 
     // setState(() {
@@ -1209,7 +1227,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
         print(itinerariesArray);
         for(var segmentvalues in itinerariesArray){
           var SegmentArray = segmentvalues['segments'];
-          print('SegmentArray...');
+          print('price . SegmentArray...');
           print(SegmentArray);
           for(var DeparturArray in SegmentArray){
             var Dep = DeparturArray['departure'] ?? "";
@@ -1226,22 +1244,49 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
               (new DateFormat.Hm().format(DateTime.parse(departuretime)));
               Datestr =
               (new DateFormat.yMd().format(DateTime.parse(departuretime)));
+            }
+
+            //departure flight terminel
+            Depterminal = Dep['terminal'] ?? "";
+            print('dep terminal2...');
+            print(Depterminal);
+
+            //return flight departure
+            if(depiataCodestr == Retrived_round_trip_dep_Destinationiatacodestr){
+              // depiataCode = Dep['iataCode'];
+              // print('depiataCode.......');
+              // print(depiataCode);
+
+              var departuretime = Dep['at'];
+              return_departure_time =
+              (new DateFormat.Hm().format(DateTime.parse(departuretime)));
+              Datestr =
+              (new DateFormat.yMd().format(DateTime.parse(departuretime)));
+              print('return_departure_time....');
+              print(return_departure_time);
+
+
 
             }
+            return_Depterminal = Dep['terminal'] ?? "";
+            print('return_Depterminal');
+            print(return_Depterminal);
 
             // OnwardJourney_dateArray.add(Datestr);
             // OnwardJourney_DeptimeArray.add(Deptimeconvert);
             Depterminal = Dep['terminal'] ?? "";
-            // print('dep terminal...');
-            // print(Depterminal);
+            print('dep terminal4...');
+            print(Depterminal);
 
           }
           for(var ArraivalArray in SegmentArray){
             var Arrival = ArraivalArray['arrival'] ?? "";
             var arrivalstr = Arrival['iataCode'];
 
-            if(arrivalstr == Retrived_round_trip_dep_Destinationiatacodestr){
-              arrivalCode = Arrival['iataCode'];
+
+            //departure flight arrival time
+            if(arrivalstr == Retrived_round_trip_dep_originiatacodestr){
+              //arrivalCode = Arrival['iataCode'];
               // print('arrivalCode...');
               // print(arrivalCode);
               var Arrivaltime = Arrival['at'];
@@ -1249,12 +1294,30 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
               (new DateFormat.Hm().format(DateTime.parse(Arrivaltime)));
               Datestr =
               (new DateFormat.yMd().format(DateTime.parse(Arrivaltime)));
+
+
+
+            }
+
+            Arrivalterminal = Arrival['terminal'] ?? "";
+            print('arrival terminal...');
+            print(Arrivalterminal);
+            if(arrivalstr == Retrived_round_trip_dep_Destinationiatacodestr){
+              arrivalCode = Arrival['iataCode'];
+              print('arrivalCode...');
+              print(arrivalCode);
+              var Arrivaltime = Arrival['at'];
+              return_arrival_time =
+              (new DateFormat.Hm().format(DateTime.parse(Arrivaltime)));
+              Datestr =
+              (new DateFormat.yMd().format(DateTime.parse(Arrivaltime)));
+
             }
             // print('arrivalCode...');
             // print(arrivalCode);
-            Arrivalterminal = Arrival['terminal'] ?? "";
-            // print('arrival terminal...');
-            // print(Arrivalterminal);
+            return_Arrivalterminal = Arrival['terminal'] ?? "";
+            print('return_Arrivalterminal...');
+            print(return_Arrivalterminal);
             var Arrivaltime = Arrival['at'];
             Arrivaltimeconvert =
             (new DateFormat.Hm().format(DateTime.parse(Arrivaltime)));
@@ -1321,13 +1384,13 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
           // print('filtered...');
           // print(filterpriceArray);
           for (var price in filterpriceArray) {
-            // var priceArray = price['price'];
-            // print('total price value..');
-            // print(priceArray);
-            // totalpricevalues = priceArray['total'];
-            // print('total amt..');
-            // print(totalpricevalues);
-            // totalPricevaluesArray.add(totalpricevalues);
+            var priceArray = price['price'];
+            print('total price value..');
+            print(priceArray);
+            totalpricevalues = priceArray['total'];
+            print('total amt..');
+            print(totalpricevalues);
+            totalPricevaluesArray.add(totalpricevalues);
             var cabin_class_array = price['fareDetailsBySegment'];
             print('cabin_class_array..');
             print(cabin_class_array);
@@ -1467,15 +1530,15 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
 
                           // trimedDuration = durationstr.substring(2);
                           //
-                          // if(CurrencyCodestr == "USD"){
-                          //   //totalpricevalues = totalPricevaluesArray[index].toString();
-                          //   //print("I have \$$dollars."); // I have $42.
-                          //   // totalpriceSignvalues = "\$$totalpricevalues";
-                          //   totalpriceSignvalues = "\USD $grandTotalprice";
-                          // } else {
-                          //   // totalpricevalues = totalPricevaluesArray[index].toString();
-                          //   totalpriceSignvalues = "\ZAR $grandTotalprice";
-                          // }
+                          if(CurrencyCodestr != "USD"){
+                            //totalpricevalues = totalPricevaluesArray[index].toString();
+                            //print("I have \$$dollars."); // I have $42.
+                            // totalpriceSignvalues = "\$$totalpricevalues";
+                            totalpriceSignvalues = "\USD $grandTotalprice";
+                          } else {
+                            // totalpricevalues = totalPricevaluesArray[index].toString();
+                            totalpriceSignvalues = "\ZAR $grandTotalprice";
+                          }
                           return SingleChildScrollView(
                             physics: ScrollPhysics(),
                             child: Column(
@@ -1565,7 +1628,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                               SizedBox(
                                                                 height: 100,
                                                               ),
-                                                              Text(Arrivaltimeconvert,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
+                                                              Text(return_arrival_time,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
                                                               ),),
                                                               Text(arrivalCode,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.black
                                                               ),),
@@ -1811,7 +1874,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                   Container(
                                                       height: 50,
                                                       width: 300,
-                                                      child: Text(depiataCode + 'return---> ' + arrivalCode,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.black
+                                                      child: Text(arrivalCode + '---> ' + depiataCode,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w800,color: Colors.black
                                                       )
                                                       )
                                                   ),
@@ -1842,7 +1905,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                               ),),
 
                                                               SizedBox(height: 10,),
-                                                              Text(Deptimeconvert,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
+                                                              Text(return_departure_time,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
                                                               ),),
 
                                                               SizedBox(
@@ -1905,7 +1968,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                                 height: 50,
                                                                 width: 220,
                                                                 color: Colors.transparent,
-                                                                child: Text('Terminal:' + "   " + Depterminal,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black),),
+                                                                child: Text('Terminal:' + "   " + return_Depterminal,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black),),
                                                               ),
 
                                                               Container(
@@ -1955,7 +2018,7 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                               ),
                                                               Align(
                                                                 alignment: Alignment.topLeft,
-                                                                child: Text('Terminal:' + "   " + Arrivalterminal,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black),),
+                                                                child: Text('Terminal:' + "   " + return_Arrivalterminal,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black),),
                                                               ),
                                                             ],
                                                           ),

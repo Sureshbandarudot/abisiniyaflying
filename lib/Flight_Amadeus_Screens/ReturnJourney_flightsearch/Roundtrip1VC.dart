@@ -1448,6 +1448,8 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                   Datestr =
                   (new DateFormat.yMd().format(DateTime.parse(departuretime)));
                   OnwardJourney_dateArray.add(Datestr);
+                  print('time12...');
+                  print(Deptimeconvert);
                   OnwardJourney_DeptimeArray.add(Deptimeconvert);
                 }
 
@@ -1462,6 +1464,8 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                   Datestr =
                   (new DateFormat.yMd().format(DateTime.parse(departuretime)));
                   OnwardJourney_dateArray.add(Datestr);
+                  print('time...');
+                  print(Deptimeconvert);
                   first_seg_OnwardJourney_DeptimeArray.add(Deptimeconvert);
                 }
 
@@ -1538,6 +1542,8 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                   Datestr =
                   (new DateFormat.yMd().format(DateTime.parse(departuretime)));
                   OnwardJourney_dateArray.add(Datestr);
+                  print('time3...');
+                  print(Deptimeconvert);
                   OnwardJourney_DeptimeArray.add(Deptimeconvert);
                 }
                 if(Retrived_Rndtrp_Destination_iatacodestr == depiataCode) {
@@ -1550,6 +1556,8 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                   Datestr =
                   (new DateFormat.yMd().format(DateTime.parse(departuretime)));
                   ReturnJourney_dateArray.add(Datestr);
+                  print('time4...');
+                  print(Deptimeconvert);
                   ReturnJourney_DeptimeArray.add(Deptimeconvert);
                 }
 
@@ -2278,7 +2286,7 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                 children: [
                                                                   if (Retrived_Rndtrp_Destination_iatacodestr == depiataCode) ...[
 
-                                                                    
+                                                                    //
                                                                     Text(first_seg_OnwardJourney_DeptimeArray[index].toString() + '----------------------------------> ' + first_Seg_OnwardJourney_ArrivaltimeArray[index],style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.black
                                                                     ),),
 
@@ -2502,6 +2510,13 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                     //Return airline name and logo...
                                                                     prefs.setString('return_airlinekey', Return_convertedAirlineArray[index]);
                                                                     prefs.setString('return_logokey', Return_AirlinelogoArray[index]);
+                                                                    prefs.setString('return_journey_departure_time_key', OnwardJourney_DeptimeArray[index]);
+                                                                    prefs.setString('return_journey_arrival_time_key', OnwardJourney_DeptimeArray[index]);
+
+
+
+
+
                                                                     //Baggage
                                                                     // prefs.setInt('weightkey', weight) ?? 0;
                                                                     // prefs.setInt('quantitykey', quantity) ?? 0;
