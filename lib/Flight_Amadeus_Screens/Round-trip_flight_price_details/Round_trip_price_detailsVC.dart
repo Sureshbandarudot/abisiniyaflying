@@ -157,7 +157,9 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
   _retrieveValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    CurrencyCodestr = prefs.getString('currency_code_dropdownvaluekey') ?? '';
+    CurrencyCodestr = prefs.getString('Rndcurrency_code_dropdownvaluekey') ?? '';
+    print('rnd trip currency code1....');
+    print(CurrencyCodestr);
     selectedseat = prefs.getString('selectedseatkey') ?? '';
     print('price screen seat');
     print(selectedseat);
@@ -241,8 +243,8 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
     print('retrived  validatingAirlineCodestr...');
     print(validatingAirlineCodestr);
     validatingAirlineCodestrArray = json.decode(validatingAirlineCodestr);
-    // print('validatingAirlineCodestrArray...');
-    // print(validatingAirlineCodestrArray.first);
+    print('validatingAirlineCodestrArray...');
+    print(validatingAirlineCodestrArray.first);
 
     //Baggage Data retrived
     //Baggage
@@ -1530,7 +1532,9 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
 
                           // trimedDuration = durationstr.substring(2);
                           //
-                          if(CurrencyCodestr != "USD"){
+                          print('currency code checking...');
+                          print(CurrencyCodestr);
+                          if(CurrencyCodestr == "USD"){
                             //totalpricevalues = totalPricevaluesArray[index].toString();
                             //print("I have \$$dollars."); // I have $42.
                             // totalpriceSignvalues = "\$$totalpricevalues";

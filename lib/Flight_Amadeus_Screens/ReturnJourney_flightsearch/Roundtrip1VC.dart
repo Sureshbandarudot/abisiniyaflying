@@ -249,7 +249,7 @@ class _userDashboardState extends State<Flight_Round_Trip> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       CurrencyCodestr = prefs.getString('currency_code_Rndtrp_dropdownvaluekey') ?? '';
-      print('Currency code value...');
+      print('rnd Currency code value21...');
       print(CurrencyCodestr);
       flightTokenstr = prefs.getString('flightTokenstrKey') ?? '';
       print('Onward journey token...');
@@ -1838,8 +1838,8 @@ class _userDashboardState extends State<Flight_Round_Trip> {
       for (var validatingAirlineCodesArray in flightData) {
         //travelerPricings
         var validatingAirlineCodes = validatingAirlineCodesArray['validatingAirlineCodes'];
-        // print('validatingAirlineCodes...');
-        // print(validatingAirlineCodes.toString());
+        print('validatingAirlineCodes...');
+        print(validatingAirlineCodes.toString());
         validatingAirlineCodesArrayList.add(validatingAirlineCodes);
         // print('validatingAirlineCodesArrayList...');
         //
@@ -2091,8 +2091,8 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                           Return_AirlinelogoArray.add(Return_Airline_logo);
                                         }
                                       } else {
-                                        var Return_Carrercodestr = ReturnJourney_carrierCodeArray1[index].toString() ?? 0;
-                                        print('Return_Carrercodestr1....');
+                                        var Return_Carrercodestr = ReturnJourney_carrierCodeArray1[index].toString() ?? 'empty';
+                                        print('calling Return_Carrercodestr1....');
                                         print(ReturnJourney_carrierCodeArray1[index].toString());
                                         print('Return_Carrercodestr....');
                                         print(Return_Carrercodestr);
@@ -2483,7 +2483,18 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                     prefs.setString('numberOfBookableSeatskey', numberOfBookableSeatsArray[index].toString());
                                                                     prefs.setString('carrierCodekey', OnwardJourney_carrierCodeArray1[index]);
                                                                     prefs.setString('flight_optionkey', 'round-trip');
-                                                                    prefs.setString('return_carrierCodekey', ReturnJourney_carrierCodeArray1[index]);
+                                                                    print('index value.....');
+                                                                    print(ReturnJourney_carrierCodeArray1.length);
+
+
+                                                                    if(ReturnJourney_carrierCodeArray1.length == 0) {
+                                                                      print('empty calling....');
+                                                                    } else {
+                                                                      print('not empty ....');
+
+                                                                      prefs.setString('return_carrierCodekey', ReturnJourney_carrierCodeArray1[index] ?? 'empty');
+
+                                                                    }
 
 
                                                                     print('career code...');
@@ -2531,6 +2542,11 @@ class _userDashboardState extends State<Flight_Round_Trip> {
                                                                     print('sent value');
                                                                     print(Passengers_cnt);
 
+                                                                    //Currency code
+                                                                    prefs.setString('Rndcurrency_code_dropdownvaluekey', CurrencyCodestr);
+
+                                                                    print('sending Currency code value...');
+                                                                    print(CurrencyCodestr);
 
                                                                     //Cabin Baggage
                                                                     // prefs.setInt('Cabin_weightkey', Cabin_weight) ?? 0;
