@@ -18,6 +18,8 @@ import 'package:tourstravels/My_Apartments/ViewApartmentVC.dart';
 
 import 'package:tourstravels/Singleton/SingletonAbisiniya.dart';
 
+import 'Roundtrip_seatMapScreens/Rnd_seatMapVC.dart';
+
 
 class Round_Trip_Add_OnsVC extends StatefulWidget {
   const Round_Trip_Add_OnsVC({super.key});
@@ -165,7 +167,9 @@ class _userDashboardState extends State<Round_Trip_Add_OnsVC> {
   _retrieveValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    CurrencyCodestr = prefs.getString('currency_code_dropdownvaluekey') ?? '';
+    CurrencyCodestr = prefs.getString('Additional_services_currencycodekey') ?? '';
+    print('Additional services...');
+    print(CurrencyCodestr);
     selectedseat = prefs.getString('selectedseatkey') ?? '';
     print('price screen seat');
     print(selectedseat);
@@ -1464,7 +1468,7 @@ class _userDashboardState extends State<Round_Trip_Add_OnsVC> {
                               }
                             } else {
 
-                              if(CurrencyCodestr == "USD"){
+                              if(CurrencyCodestr == "USD") {
                                 //totalpricevalues = totalPricevaluesArray[index].toString();
                                 //print("I have \$$dollars."); // I have $42.
                                 // totalpriceSignvalues = "\$$totalpricevalues";
@@ -1477,7 +1481,7 @@ class _userDashboardState extends State<Round_Trip_Add_OnsVC> {
                           } else {
                             print('selected third piece....');
                             if(Baggage_Addstr != '') {
-                              if(CurrencyCodestr == "USD"){
+                              if(CurrencyCodestr == "USD") {
                                 //totalpricevalues = totalPricevaluesArray[index].toString();
                                 //print("I have \$$dollars."); // I have $42.
                                 // totalpriceSignvalues = "\$$totalpricevalues";
@@ -1494,9 +1498,6 @@ class _userDashboardState extends State<Round_Trip_Add_OnsVC> {
                                 SelectedBaggageAmtstr = "$amtvalue ";
                                 var result = (n1 + n2).toString();
                                 totalpriceSignvalues = "\USD $result ";
-
-
-
                                 // totalpriceSignvalues = "\USD $grandTotalprice ";
                               } else {
                                 Baggage_Addstrmessage = 'Added' + ' ' + Extra_baggagequantity.toString() + 'piece' + ' '+ 'Total:' + ' ' + Extra_baggageAmt;
@@ -2414,11 +2415,11 @@ class _userDashboardState extends State<Round_Trip_Add_OnsVC> {
                                                         print('navigate to seatmap...');
                                                         SharedPreferences prefs = await SharedPreferences.getInstance();
                                                         prefs.setString('seatmapkey', 'seatmap');
-                                                        // Navigator.push(
-                                                        //   context,
-                                                        //   MaterialPageRoute(
-                                                        //       builder: (context) => SeatMapVC()),
-                                                        // );
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) => Round_Trip_SeatMapVC()),
+                                                        );
                                                       } else if(Baggage_Addstr != '' && seatmapstatus != '') {
                                                         print('selected seat and  baggage....');
                                                         print(totalpricevalues);
@@ -2438,7 +2439,7 @@ class _userDashboardState extends State<Round_Trip_Add_OnsVC> {
                                                         // Navigator.push(
                                                         //   context,
                                                         //   MaterialPageRoute(
-                                                        //       builder: (context) => SeatMapVC()),
+                                                        //       builder: (context) => Round_Trip_SeatMapVC()),
                                                         // );
                                                       } else {
                                                         final snackBar = SnackBar(

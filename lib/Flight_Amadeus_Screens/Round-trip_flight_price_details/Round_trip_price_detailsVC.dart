@@ -2160,6 +2160,9 @@ class _userDashboardState extends State<RoundtripJourney_Flight_Details> {
                                                       SharedPreferences prefs = await SharedPreferences.getInstance();
                                                       prefs.setString('totalpriceSignvalueskey', (totalpriceSignvalues));
                                                       prefs.setString('pricekey', (totalpricevalues));
+                                                      prefs.setString('Additional_services_currencycodekey', (CurrencyCodestr));
+
+
 
 
                                                       String SegmentData = jsonEncode(Convert_segmentArray);
