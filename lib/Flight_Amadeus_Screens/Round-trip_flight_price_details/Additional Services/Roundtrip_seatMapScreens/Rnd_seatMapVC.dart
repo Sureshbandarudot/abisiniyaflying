@@ -374,21 +374,12 @@ class _BusLayoutState extends State<BusLayout> {
     print('seat convert_Currency_PriceArray....');
     print(convert_Currency_PriceArray);
 
-
-
-
-
-
-
-
-
-
     //FareRules
     final Retrive_fareRules ;
     Retrive_fareRules = prefs.getString('fareRuleskey') ?? '';
     // print('seat fareRuleskey...');
     // print(Retrive_fareRules);
-    if(Retrive_fareRules != ""){
+    if(Retrive_fareRules != "") {
       print('seat empty fare values....');
       // fareRulesArray = jsonDecode(Retrive_fareRules);
       // print('Retrive_fareRules....');
@@ -438,8 +429,8 @@ class _BusLayoutState extends State<BusLayout> {
 
 
         Navigator.of(context, rootNavigator: true).pop();
-        // await Navigator.of(context)
-        //     .push(new MaterialPageRoute(builder: (context) => Multiple_passengerlistVC()));
+        await Navigator.of(context)
+            .push(new MaterialPageRoute(builder: (context) => Round_trip_Multiple_passengerlistVC()));
         setState((){
           //Navigator.pop(context);
         });

@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 
 import '../../../Auth/Register.dart';
+import '../../../Singleton/SingletonAbisiniya.dart';
+import 'Rnd_Byrcdlocator_PassengerlistVC.dart';
 
 
 
@@ -77,6 +79,7 @@ class Round_trip_Multiple_passengerlistVC extends StatefulWidget {
 }
 
 class _SOFState extends State<Round_trip_Multiple_passengerlistVC> {
+
   TextEditingController Passengerlist_EmailTxt = TextEditingController();
   TextEditingController Passengerlist_phone_numtxt = TextEditingController();
   var firstNameTECs = <TextEditingController>[];
@@ -154,7 +157,7 @@ class _SOFState extends State<Round_trip_Multiple_passengerlistVC> {
   late final ItineraryArray;
 
   List validatingAirlineCodestrArray = [];
-  //final baseDioSingleton = BaseSingleton();
+  final baseDioSingleton = BaseSingleton();
 
 
 
@@ -210,7 +213,11 @@ class _SOFState extends State<Round_trip_Multiple_passengerlistVC> {
 
   _retrieveValues() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    CurrencyCodestr = prefs.getString('currency_code_dropdownvaluekey') ?? '';
+    //CurrencyCodestr = prefs.getString('currency_code_dropdownvaluekey') ?? '';
+
+    CurrencyCodestr = prefs.getString('Additional_services_currencycodekey') ?? '';
+    print('rnd currency code Additional services...');
+    print(CurrencyCodestr);
     totalpricevalues = prefs.getString('totalpriceSignvalueskey') ?? '';
     totalprice = prefs.getString('pricekey') ?? '';
     // print('totalprice...');
@@ -384,10 +391,10 @@ class _SOFState extends State<Round_trip_Multiple_passengerlistVC> {
       print('without seat number...');
       print(convert_travelerPricingsArray);
       final Retrived_Currency_PriceArray ;
-      Retrived_Currency_PriceArray = prefs.getString('Currency_Pricekey') ?? '';
-      print('p_Retrived_Currency_PriceArray...');
+      //Retrived_Currency_PriceArray = prefs.getString('Currency_Pricekey') ?? '';
+      Retrived_Currency_PriceArray = prefs.getString('Round_trip_Currency_Pricekey') ?? '';
+      print('rnd passenger p_Retrived_Currency_PriceArray...');
       print(Retrived_Currency_PriceArray);
-
       convert_Currency_PriceArray = jsonDecode(Retrived_Currency_PriceArray);
       print('convert_Currency_PriceArray....');
       print(convert_Currency_PriceArray);
@@ -2713,7 +2720,7 @@ class _SOFState extends State<Round_trip_Multiple_passengerlistVC> {
   void login(String email , password) async {
     try{
       print('login url...');
-      var baseDioSingleton;
+
       print(baseDioSingleton.AbisiniyaBaseurl +'login');
       Response response = await post(
         //Uri.parse('https://staging.abisiniya.com/api/v1/login'),
@@ -2761,12 +2768,12 @@ class _SOFState extends State<Round_trip_Multiple_passengerlistVC> {
           prefs.setString('local_Flight_tokenkey', Abiniyatokenvalue);
 
 
-          // Navigator.of(context, rootNavigator: true).pop();
-          // Navigator.of(context)
-          //     .push(new MaterialPageRoute(builder: (context) => Passenger_DetailsVC()));
-          // setState((){
-          //   //Navigator.pop(context);
-          // });
+          Navigator.of(context, rootNavigator: true).pop();
+          Navigator.of(context)
+              .push(new MaterialPageRoute(builder: (context) => Rnd_ByrecordLocator_Passenger_DetailsVC()));
+          setState((){
+            //Navigator.pop(context);
+          });
           //loginshowAlertDialog(context);
           //LoginshowAlertDialog(context);
           // _postData();
