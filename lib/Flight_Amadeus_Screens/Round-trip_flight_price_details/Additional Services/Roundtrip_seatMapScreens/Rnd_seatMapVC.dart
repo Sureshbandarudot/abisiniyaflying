@@ -20,6 +20,8 @@ import 'package:tourstravels/ApartVC/Addaprtment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:tourstravels/Singleton/SingletonAbisiniya.dart';
+
+import '../../Booking_Screens/Rnd_PassengerDetailsVC.dart';
 void main() {
   runApp(const Round_Trip_SeatMapVC());
 }
@@ -511,8 +513,6 @@ class _BusLayoutState extends State<BusLayout> {
     setState(() {
       isLoading = true;
     });
-    //tempList = List<String>();
-    //List<String> tempList = [];
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     flightTokenstr = prefs.getString('flightTokenstrKey') ?? '';
@@ -974,7 +974,7 @@ class _BusLayoutState extends State<BusLayout> {
     });
     //tempList = List<String>();
     //List<String> tempList = [];
-    print('call selected seat...');
+    print('rnd trip call selected seat...');
     print(selectedseat);
     // seatmap_convert_travelerPricingsArray[0]['fareDetailsBySegment']![0]["additionalServices"] = {
     //   "chargeableSeatNumber": selectedseat
@@ -1022,9 +1022,6 @@ class _BusLayoutState extends State<BusLayout> {
 
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     flightTokenstr = prefs.getString('flightTokenstrKey') ?? '';
-    // print(' Details Onward journey token1...');
-    // print(flightTokenstr);
-    //{{API_URL}}/v1/shopping/flight-offers/pricing
     final response = await http.post(
       Uri.parse(
           'https://test.travel.api.amadeus.com/v1/shopping/flight-offers/pricing'),
@@ -1053,72 +1050,20 @@ class _BusLayoutState extends State<BusLayout> {
               "lastTicketingDateTime": lastTicketingDate_Timestr,
               "numberOfBookableSeats": numberOfBookableSeatsstr,
 
+              "itineraries": Convert_ItineraryArray,
 
-              // "type": "flight-offer",
-              // "id": "1",
-              // "source": "GDS",
-              // "instantTicketingRequired": false,
-              // "nonHomogeneous": false,
-              // "oneWay": false,
-              // "isUpsellOffer": false,
-              // "lastTicketingDate": "2024-09-12",
-              // "lastTicketingDateTime": "2024-09-12",
-              // "numberOfBookableSeats": 9,
-              "itineraries": [
-                {
-                  "duration": durationstr,
 
-                  "segments": Convert_segmentArray,
-
-                  // "segments": [
-                  //   {
-                  //     "departure": {
-                  //       "iataCode": "BLR",
-                  //       "terminal": "2",
-                  //       "at": "2024-09-25T05:45:00"
-                  //     },
-                  //     "arrival": {
-                  //       "iataCode": "DEL",
-                  //       "terminal": "3",
-                  //       "at": "2024-09-25T08:40:00"
-                  //     },
-                  //     "carrierCode": "AI",
-                  //     "number": "804",
-                  //     "aircraft": {
-                  //       "code": "32N"
-                  //     },
-                  //     "operating": {
-                  //       "carrierCode": "AI"
-                  //     },
-                  //     "duration": "PT2H55M",
-                  //     "id": "41",
-                  //     "numberOfStops": 0,
-                  //     "blacklistedInEU": false
-                  //   }
-                  // ]
-                }
-              ],
+              // "itineraries": [
+              //   {
+              //     "duration": durationstr,
+              //
+              //     "segments": Convert_segmentArray,
+              //
+              //   }
+              // ],
 
               "price": convert_Currency_PriceArray,
 
-
-
-              // "price": {
-              //   "currency": "USD",
-              //   "total": "79.80",
-              //   "base": "64.00",
-              //   "fees": [
-              //     {
-              //       "amount": "0.00",
-              //       "type": "SUPPLIER"
-              //     },
-              //     {
-              //       "amount": "0.00",
-              //       "type": "TICKETING"
-              //     }
-              //   ],
-              //   "grandTotal": "79.80"
-              // },
               "pricingOptions": {
                 "fareType": [
                   "PUBLISHED"
@@ -1130,119 +1075,8 @@ class _BusLayoutState extends State<BusLayout> {
                 validatingAirlineCodestrArray.first
               ],
 
-              // "type": "flight-offer",
-              // "id": "5",
-              // "source": "GDS",
-              // "instantTicketingRequired": false,
-              // "nonHomogeneous": false,
-              // "paymentCardRequired": false,
-              // "lastTicketingDate": "2024-09-25",
-              // "itineraries": [
-              //   {
-              //     "segments": [
-              //       {
-              //         "departure": {
-              //           "iataCode": "BLR",
-              //           "terminal": "2",
-              //           "at": "2024-09-30T11:45:00"
-              //         },
-              //         "arrival": {
-              //           "iataCode": "DEL",
-              //           "terminal": "3",
-              //           "at": "2024-09-30T14:35:00"
-              //         },
-              //         "carrierCode": "AI",
-              //         "number": "507",
-              //         "aircraft": {
-              //           "code": "321"
-              //         },
-              //         "operating": {
-              //           "carrierCode": "AI"
-              //         },
-              //         "duration": "PT2H50M",
-              //         "id": "29",
-              //         "numberOfStops": 0,
-              //         "co2Emissions": [
-              //           {
-              //             "weight": 117,
-              //             "weightUnit": "KG",
-              //             "cabin": "ECONOMY"
-              //           }
-              //         ]
-              //       }
-              //     ]
-              //   }
-              // ],
-              // "price": {
-              //   "currency": "USD",
-              //   "total": "97.80",
-              //   "base": "81.00",
-              //   "fees": [
-              //     {
-              //       "amount": "0.00",
-              //       "type": "SUPPLIER"
-              //     },
-              //     {
-              //       "amount": "0.00",
-              //       "type": "TICKETING"
-              //     },
-              //     {
-              //       "amount": "0.00",
-              //       "type": "FORM_OF_PAYMENT"
-              //     }
-              //   ],
-              //   "grandTotal": "104.98",
-              //   "billingCurrency": "USD",
-              //   "additionalServices": [
-              //     {
-              //       "amount": "7.18",
-              //       "type": "SEATS"
-              //     }
-              //   ]
-              // },
-              // "pricingOptions": {
-              //   "fareType": [
-              //     "PUBLISHED"
-              //   ],
-              //   "includedCheckedBagsOnly": true
-              // },
-              // "validatingAirlineCodes": [
-              //   "AI"
-              // ],
-
               "travelerPricings": seatmap_convert_travelerPricingsArray,
 
-              // "travelerPricings": [
-              //   {
-              //     "travelerId": "1",
-              //     "fareOption": "STANDARD",
-              //     "travelerType": "ADULT",
-              //     "price": {
-              //       "currency": "USD",
-              //       "total": "79.90",
-              //       "base": "64.00"
-              //     },
-              //     "fareDetailsBySegment": [
-              //       {
-              //         "segmentId": "35",
-              //         "cabin": "ECONOMY",
-              //         "fareBasis": "UU1YXFII",
-              //         "class": "U",
-              //         "includedCheckedBags": {
-              //           "weight": 15,
-              //           "weightUnit": "KG"
-              //         },
-              //         "includedCabinBags": {
-              //           "weight": 7,
-              //           "weightUnit": "KG"
-              //         },
-              //         "additionalServices": {
-              //           "chargeableSeatNumber": "4A"
-              //         }
-              //       }
-              //     ]
-              //   }
-              // ],
             }
           ],
           "bookingRequirements": {
@@ -1256,7 +1090,7 @@ class _BusLayoutState extends State<BusLayout> {
       ),
     );
 
-    print('Details array....');
+    print('price rnd Details array....');
 
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -1343,65 +1177,17 @@ class _BusLayoutState extends State<BusLayout> {
           print('total price...');
           print(totalprice);
           print(chargeable_Baggage_Amount);
-
-
           double n1 = double.tryParse(totalprice) ?? 0.0;
           double n2 = double.tryParse(chargeable_Baggage_Amount) ?? 0.0;
           var result = (n1 + n2).toString();
           grandTotalprice = "$result ";
-
-
-          // double totalScores = 0.0;
-          // // looping over data array
-          // Currency_Pricestr.forEach((item){
-          //   //getting the key direectly from the name of the key
-          //   totalScores += item["grandTotal"];
-          // });
-          //
-          // print('total scores....');
-          // print(totalScores); // OUTPUT ==> 172.39999999999998
-
-
-          // var myInt = double.parse(grandTotalprice);
-          // assert(myInt is double);
-          // print(myInt); // 12345
-          // print('Sum...: $myInt');
-          // List<double> list= [];
-          // list.add(myInt);
-          // print('Sum list...: $list');
-
-
           String total = '';
           for (var item in Currency_Price_Array) {
             var totalv = item + total;
             print('total...');
             print(totalv);
           }
-
-          // List<double> numbers = [];
-          // numbers.add(myInt);
-          //  int result = sumUsingLoop(numbers!);
-          //  print('Sum of numbers: $result');
-          // List<int> numbers = [];
-          // int result = sumUsingLoop(numbers);
-          // print('Sum of numbers: $result');
-          //  List<int> numbers = [];
-          // // numbers.add(grandTotalprice as int);
-          //  int result = sumUsingReduce(Currency_Price_Array as List<int>);
-          //  print('Sum of numbers: $result'); //
-
-
-          // int? sum = 0;
-          // for(int i=0; i< Currency_Price_Array.length; i++) {
-          //   sum += Currency_Price_Array.length[i];
-          // }
-          // int sum = Currency_Price_Array.reduce((value, element) => value + element);
-          // print('Sum........: $sum');
-
         }
-
-
-
         //travelerPricings
         for (var priceArray in flightOffers) {
           //travelerPricings
@@ -2039,7 +1825,7 @@ class _BusLayoutState extends State<BusLayout> {
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(
-                            //       builder: (context) => Multiple_passengerlistVC()),
+                            //       builder: (context) => Round_trip_Multiple_passengerlistVC()),
                             // );
 
                           } else {
@@ -2049,11 +1835,11 @@ class _BusLayoutState extends State<BusLayout> {
                             print('selected seat value0...');
                             print(selectedseat);
 
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => ConnectedFlight_firstSegment()),
-                            // );
+                            Navigator.push (
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Round_trip_Multiple_passengerlistVC()),
+                            );
 
                           }
                         }
