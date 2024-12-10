@@ -498,7 +498,7 @@ class _BusLayoutState extends State<BusLayout> {
           });
           return AlertDialog(
             title: Text('Seat ${seatnumberListtempArray.toList()}'),
-            content: Text(totalpriceSignvalues),
+            //content: Text(totalpriceSignvalues),
           );
         });
   }

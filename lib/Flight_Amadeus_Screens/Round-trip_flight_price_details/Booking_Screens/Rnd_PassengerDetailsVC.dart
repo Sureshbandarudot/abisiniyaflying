@@ -305,6 +305,7 @@ class _SOFState extends State<Round_trip_Multiple_passengerlistVC> {
     // print(durationstr);
     //Traveller types receiving
     final Retrived_Traveller_type_Array;
+    // Retrived_Traveller_type_Array = prefs.getString('TravellertypejsonParsingkey') ?? '';
     Retrived_Traveller_type_Array = prefs.getString('TravellertypejsonParsingkey') ?? '';
     print('Retrived_Traveller_type_Array...');
     print(Retrived_Traveller_type_Array);
